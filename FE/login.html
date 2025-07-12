@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auth System with Social Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+ <link rel="stylesheet" href="login.css">
+</head>
+<body>
+  <div class="background-pattern"></div>
+  
+  <div class="auth-container">
+    <!-- Login Form (Screen 1) -->
+    <div id="login-form" class="auth-card">
+      <div class="auth-header">
+        <h1 class="auth-title">Welcome Back</h1>
+        <p class="auth-subtitle">Sign in to continue to your account</p>
+      </div>
+      
+      <div class="avatar">
+        <i class="fas fa-user"></i>
+      </div>
+      
+      <div class="input-group">
+        <i class="fas fa-user input-icon"></i>
+        <input id="login-username" class="auth-input" type="text" placeholder="Username" required>
+      </div>
+      
+      <div class="input-group">
+        <i class="fas fa-lock input-icon"></i>
+        <input id="login-password" class="auth-input" type="password" placeholder="Password" required>
+      </div>
+      
+      <div id="login-error" class="error-message"></div>
+      
+      <button id="login-btn" class="auth-btn" type="button">Sign In</button>
+      
+      <!-- Social Login Section -->
+      <div class="social-section">
+        <div class="social-divider">
+          <span>or sign in with</span>
+        </div>
+        
+        <div class="social-buttons">
+          <button class="social-btn google-btn">
+            <i class="fab fa-google"></i> Google
+          </button>
+          <button class="social-btn github-btn">
+            <i class="fab fa-github"></i> GitHub
+          </button>
+        </div>
+      </div>
+      
+      <div class="footer-links">
+        <a id="forgot-password" class="footer-link">Forgot password?</a>
+        <a id="show-register" class="footer-link">Create account</a>
+      </div>
+    </div>
+    
+    <!-- Registration Form (Screen 2) -->
+    <div id="register-form" class="auth-card" style="display: none;">
+      <div class="auth-header">
+        <h1 class="auth-title">Create Account</h1>
+        <p class="auth-subtitle">Join us to get started</p>
+      </div>
+      
+      <div class="avatar">
+        <i class="fas fa-user-plus"></i>
+      </div>
+      
+      <div class="input-group">
+        <i class="fas fa-user input-icon"></i>
+        <input id="reg-username" class="auth-input" type="text" placeholder="Username" required>
+      </div>
+      
+      <div class="input-group">
+        <i class="fas fa-envelope input-icon"></i>
+        <input id="reg-email" class="auth-input" type="email" placeholder="Email" required>
+      </div>
+      
+      <div class="input-group">
+        <i class="fas fa-lock input-icon"></i>
+        <input id="reg-password" class="auth-input" type="password" placeholder="Password" required>
+      </div>
+      
+      <div class="input-group">
+        <i class="fas fa-lock input-icon"></i>
+        <input id="reg-confirm" class="auth-input" type="password" placeholder="Confirm Password" required>
+      </div>
+      
+      <div id="register-error" class="error-message"></div>
+      
+      <button id="register-btn" class="auth-btn" type="button">Register</button>
+      
+      <!-- Social Login Section -->
+      <div class="social-section">
+        <div class="social-divider">
+          <span>or sign up with</span>
+        </div>
+        
+        <div class="social-buttons">
+          <button class="social-btn google-btn">
+            <i class="fab fa-google"></i> Google
+          </button>
+          <button class="social-btn github-btn">
+            
+          </button>
+        </div>
+      </div>
+      
+      <div class="footer-links">
+        <a id="show-login" class="footer-link">Already have an account?</a>
+      </div>
+    </div>
+  </div>
+
+    <script src="login.js"></script>
+</body>
+</html>
