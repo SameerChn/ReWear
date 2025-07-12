@@ -1,9 +1,10 @@
+require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const path = require('path');
 const connectDB = require('./config/db');
-const errorHandler = require('./middleware/errorHandler');
+const { errorHandler } = require('./middleware/errorHandler');
 
 // Route files
 const authRoutes = require('./routes/authRoutes');
