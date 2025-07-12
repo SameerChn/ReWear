@@ -42,12 +42,12 @@
       loginError.textContent = 'Logging in...';
       
       setTimeout(() => {
-        loginError.textContent = 'Login successful! Redirecting...';
-        setTimeout(() => {
-          // Redirect to dashboard in a real app
-          alert('Login successful! You would be redirected to the dashboard.');
-        }, 1000);
-      }, 1500);
+  loginError.textContent = 'Login successful! Redirecting...';
+  setTimeout(() => {
+    window.location.href = 'index.html';
+  }, 1000);
+}, 1500);
+
     });
     
     // Registration functionality
@@ -76,10 +76,9 @@
       setTimeout(() => {
         registerError.textContent = 'Registration successful! Redirecting to login...';
         setTimeout(() => {
-          registerForm.style.display = 'none';
-          loginForm.style.display = 'block';
-          registerError.textContent = '';
-        }, 1500);
+  window.location.href = 'index.html';
+}, 1500);
+
       }, 1500);
     });
     
