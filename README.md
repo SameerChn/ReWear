@@ -85,9 +85,9 @@ This project is open-source and will be licensed under [MIT License](LICENSE) (t
 
 ## 🌱 Let's Build a More Sustainable World – One Swap at a Time!
 
-# Authors
+## Authors
 
-## Sumit Sinha - sumitsinharcet@gmail.com
-## Aryan kumar - aryanrajput5760@gmail.com
-## Sameer Kumar - chauhan.sameer3101@gmail.com
-## Vipul Sahil - vipulsahil76320@gmail.com
+# Sumit Sinha - sumitsinharcet@gmail.com
+# Aryan kumar - aryanrajput5760@gmail.com
+# Sameer Kumar - chauhan.sameer3101@gmail.com
+# Vipul Sahil - vipulsahil76320@gmail.com
