@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ReWear - Vintage Denim Jacket</title>
+    <title>ReWear - Product Details</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="itemlisting.css">
@@ -11,160 +11,167 @@
 <body>
     <div class="container">
         <header>
-            <div class="logo">ReWear</div>
+            <div class="logo"><a href="index.html" style="text-decoration:none;color:inherit;">ReWear</a></div>
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="browse.html">Shop</a></li>
-                    <li><a href="itemlisting.html">My Listings</a></li>
+                    <li><a href="upload.html">Upload Product</a></li>
                     <li><a href="userdashboard.html">Profile</a></li>
                 </ul>
             </nav>
         </header>
-        
-        <a href="itemlisting.html" class="back-button">
-            <i class="fas fa-arrow-left"></i> Back to listings
+        <a href="browse.html" class="back-button">
+            <i class="fas fa-arrow-left"></i> shop
         </a>
-        
         <main>
-            <div class="product-detail">
-                <div class="product-images">
-                    <div class="main-image">
-                        <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Vintage Denim Jacket">
-                    </div>
-                    <div class="thumbnail">
-                        <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="Vintage Denim Jacket Front">
-                    </div>
-                    <div class="thumbnail">
-                        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="Vintage Denim Jacket Back">
-                    </div>
-                    <div class="thumbnail">
-                        <img src="https://images.unsplash.com/photo-1520367445093-50dc08a59d9d?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="Vintage Denim Jacket Detail">
-                    </div>
-                    <div class="thumbnail">
-                        <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="Vintage Denim Jacket Label">
-                    </div>
-                </div>
-                
-                <div class="product-info">
-                    <h1 class="product-title">Vintage Denim Jacket</h1>
-                    <div class="product-price">250 Swap Points</div>
-                    
-                    <div class="product-meta">
-                        <div class="meta-item">
-                            <i class="fas fa-ruler"></i> Size: M
-                        </div>
-                        <div class="meta-item">
-                            <i class="fas fa-star"></i> Condition: Excellent
-                        </div>
-                        <div class="meta-item">
-                            <i class="fas fa-map-marker-alt"></i> London, UK
-                        </div>
-                    </div>
-                    
-                    <div class="product-description">
-                        <p>This vintage denim jacket from the 90s is in excellent condition with minimal wear. Perfect for adding a retro touch to any outfit. The jacket features a classic straight fit, button-front closure, and two chest pockets.</p>
-                        <p>Made from 100% cotton denim, this piece has been gently worn and well cared for. No stains, tears, or odors. The fading is natural and even throughout the jacket.</p>
-                    </div>
-                    
-                    <div class="action-buttons">
-                        <button class="btn btn-primary">Request Swap</button>
-                        <button class="btn btn-secondary">Save for Later</button>
-                    </div>
-                    
-                    <div class="seller-info">
-                        <div class="seller-header">
-                            <div class="seller-avatar">
-                                <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Sarah Johnson">
-                            </div>
-                            <div>
-                                <div class="seller-name">Sarah Johnson</div>
-                                <div class="seller-rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                    <span>(24 reviews)</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="seller-description">
-                            <p>I've been a member of ReWear for 2 years and have completed over 50 successful swaps. All my items are carefully inspected before listing. Happy swapping!</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="product-detail" id="productDetail">
+                <!-- Product details will be loaded here by JS -->
             </div>
-            
             <div class="related-products">
                 <h2 class="section-title">You Might Also Like</h2>
-                <div class="product-grid">
-                    <div class="product-card">
-                        <div class="product-card-image">
-                            <img src="https://images.unsplash.com/photo-1543076447-215ad9ba6923?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Summer Dress">
-                        </div>
-                        <div class="product-card-info">
-                            <h3 class="product-card-title">Floral Summer Dress</h3>
-                            <div class="product-card-price">180 points</div>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-card-image">
-                            <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Leather Boots">
-                        </div>
-                        <div class="product-card-info">
-                            <h3 class="product-card-title">Leather Ankle Boots</h3>
-                            <div class="product-card-price">300 points</div>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-card-image">
-                            <img src="https://images.unsplash.com/photo-1520367445093-50dc08a59d9d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="White Shirt">
-                        </div>
-                        <div class="product-card-info">
-                            <h3 class="product-card-title">Classic White Shirt</h3>
-                            <div class="product-card-price">150 points</div>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-card-image">
-                            <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Wool Coat">
-                        </div>
-                        <div class="product-card-info">
-                            <h3 class="product-card-title">Wool Winter Coat</h3>
-                            <div class="product-card-price">350 points</div>
-                        </div>
-                    </div>
-                </div>
+                <div class="product-grid" id="relatedProducts"></div>
             </div>
         </main>
     </div>
-    
     <footer>
         <div class="footer-content">
             <div class="footer-section">
                 <h3>About ReWear</h3>
                 <p>Our mission is to promote sustainable fashion by creating a community where clothes can find new homes instead of ending up in landfills.</p>
             </div>
-            <!-- <div class="footer-section">
-                <h3>Quick Links</h3>
-                <a href="#">How It Works</a>
-                <a href="#">FAQ</a>
-                <a href="#">Terms of Service</a>
-                <a href="#">Privacy Policy</a>
-            </div> -->
-            <!-- <div class="footer-section">
-                <h3>Contact Us</h3>
-                <p>info@rewear.com</p>
-                <p>+111111</p>
-                <p>123 Green St, Eco City</p>
-            </div> -->
-        
-        <!-- <div class="copyright">
-            <p>&copy; 2025 ReWear - Community Clothing Exchange. All rights reserved.</p>
-        </div> -->
-    </div>
+        </div>
     </footer>
-  <script src="itemlisting.js"></script>
+<script>
+// Get product ID from URL
+function getProductId() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('id');
+}
+
+async function loadProduct() {
+    const id = getProductId();
+    const detail = document.getElementById('productDetail');
+    if (!id) {
+        detail.innerHTML = '<p>Product not found.</p>';
+        return;
+    }
+    detail.innerHTML = '<p>Loading...</p>';
+    try {
+        const res = await fetch(`http://localhost:5000/api/products/${id}`);
+        if (!res.ok) throw new Error('Not found');
+        const product = await res.json();
+        // Gallery logic
+        let mainImage = product.images[0];
+        let thumbnails = '';
+        if (product.images.length > 1) {
+            thumbnails = '<div class="thumbnails" id="thumbnailsGallery">' + product.images.map((img, i) =>
+                `<img src="${img}" class="thumbnail" id="thumb${i}" style="width:60px;cursor:pointer;margin:4px;border-radius:6px;${i===0?'border:2px solid #3C2A21;':''}" onclick="setMainImage('${img}', ${i}, ${product.images.length})">`
+            ).join('') + '</div>';
+        }
+        // Check if already in cart
+        let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        let inCart = cart.includes(product._id);
+        detail.innerHTML = `
+            <div class="product-images">
+                <div class="main-image">
+                    <img id="mainProductImage" src="${mainImage}" alt="${product.title}">
+                </div>
+                ${thumbnails}
+            </div>
+            <div class="product-info">
+                <h1 class="product-title">${product.title}</h1>
+                <div class="product-price">₹${product.price}</div>
+                <div class="product-description">
+                    <p>${product.description}</p>
+                </div>
+                <button class="btn btn-primary${inCart ? ' added' : ''}" id="addToCartBtn" onclick="addToCart('${product._id}')"
+                    ${inCart ? 'disabled' : ''}>
+                    ${inCart ? 'Added to Cart' : 'Add to Cart'}
+                </button>
+            </div>
+        `;
+        // Load related products
+        loadRelatedProducts(id);
+    } catch (err) {
+        detail.innerHTML = '<p>Failed to load product.</p>';
+    }
+}
+
+// Set main image and highlight selected thumbnail
+function setMainImage(img, idx, total) {
+    document.getElementById('mainProductImage').src = img;
+    for (let i = 0; i < total; i++) {
+        const thumb = document.getElementById('thumb' + i);
+        if (thumb) thumb.style.border = i === idx ? '2px solid #3C2A21' : 'none';
+    }
+}
+
+function addToCart(productId) {
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const btn = document.getElementById('addToCartBtn');
+    if (!cart.includes(productId)) {
+        cart.push(productId);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        if (btn) {
+            btn.textContent = 'Added to Cart';
+            btn.disabled = true;
+            btn.classList.add('added');
+        }
+    } else {
+        if (btn) {
+            btn.textContent = 'Added to Cart';
+            btn.disabled = true;
+            btn.classList.add('added');
+        }
+    }
+}
+
+async function loadRelatedProducts(currentId) {
+    const grid = document.getElementById('relatedProducts');
+    try {
+        const res = await fetch('http://localhost:5000/api/products');
+        const products = await res.json();
+        const related = products.filter(p => p._id !== currentId);
+        if (!related.length) {
+            grid.innerHTML = '<p>No related products found.</p>';
+            return;
+        }
+        grid.innerHTML = '';
+        related.slice(0, 4).forEach(product => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.style.cursor = 'pointer';
+            card.innerHTML = `
+                <div class="product-card-image">
+                    <img src="${product.images[0]}" alt="${product.title}">
+                </div>
+                <div class="product-card-info">
+                    <h3 class="product-card-title">${product.title}</h3>
+                    <div class="product-card-price">₹${product.price}</div>
+                </div>
+            `;
+            card.onclick = () => {
+                window.location.href = `itemlisting.html?id=${product._id}`;
+            };
+            grid.appendChild(card);
+        });
+    } catch (err) {
+        grid.innerHTML = '<p>Failed to load related products.</p>';
+    }
+}
+
+loadProduct();
+</script>
+<style>
+/* Add this style block or put in your CSS file */
+.btn.added {
+    background-color: #4CAF50 !important;
+    color: #fff !important;
+    border: none;
+    cursor: default;
+    opacity: 0.85;
+}
+</style>
 </body>
 </html>

@@ -10,13 +10,13 @@
 </head>
 <body>
     <div class="container">
-        <header>+
-            <div class="logo">ReWear</div>
+        <header>
+            <div class="logo"><a href="index.html" style="text-decoration:none;color:inherit;">ReWear</a></div>
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="browse.html">Browse</a></li>
-                    <li><a href="userdashboard.html">My Listings</a></li>
+                    <li><a href="upload.html">Upload Product</a></li>
                     <li>
                         <a href="userdashboard.html" id="cart-button">
                             <i class="fas fa-shopping-bag"></i>
@@ -27,51 +27,12 @@
                 </ul>
             </nav>
         </header>
-        
         <div class="search-section">
             <div class="search-bar">
                 <i class="fas fa-search"></i>
                 <input type="text" placeholder="Search for items...">
             </div>
-            <button class="filter-button" id="filter-button">
-                <i class="fas fa-sliders-h"></i>
-                Filters
-            </button>
         </div>
-        
-        <div class="filters" id="filters">
-            <div class="filter-group">
-                <h3>Category</h3>
-                <div class="filter-options">
-                    <div class="filter-option active">All</div>
-                    <div class="filter-option">Men's</div>
-                    <div class="filter-option">Women's</div>
-                    <div class="filter-option">Kids</div>
-                    <div class="filter-option">Accessories</div>
-                </div>
-            </div>
-            <div class="filter-group">
-                <h3>Size</h3>
-                <div class="filter-options">
-                    <div class="filter-option">XS</div>
-                    <div class="filter-option">S</div>
-                    <div class="filter-option active">M</div>
-                    <div class="filter-option">L</div>
-                    <div class="filter-option">XL</div>
-                </div>
-            </div>
-            <div class="filter-group">
-                <h3>Condition</h3>
-                <div class="filter-options">
-                    <div class="filter-option">New</div>
-                    <div class="filter-option active">Like New</div>
-                    <div class="filter-option">Good</div>
-                    <div class="filter-option">Fair</div>
-                </div>
-            </div>
-            <button class="apply-filters">Apply Filters</button>
-        </div>
-        
         <div class="sort-options">
             <span class="sort-label">Sort by:</span>
             <select class="sort-select">
@@ -82,227 +43,138 @@
                 <option>Most Popular</option>
             </select>
         </div>
-        
-        <div class="product-grid">
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Denim Jacket">
-                    <div class="product-badge">Trending</div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Vintage Denim Jacket</h3>
-                    <div class="product-price">250 points</div>
-                    <div class="product-meta">
-                        <span>Size: M</span>
-                        <span>Condition: Excellent</span>
-                    </div>
-                    <button class="add-to-cart">
-                        <i class="fas fa-exchange-alt"></i> Request Swap
-                    </button>
-                </div>
-            </div>
-            
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1543076447-215ad9ba6923?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Summer Dress">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Floral Summer Dress</h3>
-                    <div class="product-price">180 points</div>
-                    <div class="product-meta">
-                        <span>Size: S</span>
-                        <span>Condition: Like New</span>
-                    </div>
-                    <button class="add-to-cart">
-                        <i class="fas fa-exchange-alt"></i> Request Swap
-                    </button>
-                </div>
-            </div>
-            
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Leather Boots">
-                    <div class="product-badge">Popular</div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Leather Ankle Boots</h3>
-                    <div class="product-price">300 points</div>
-                    <div class="product-meta">
-                        <span>Size: 8</span>
-                        <span>Condition: Good</span>
-                    </div>
-                    <button class="add-to-cart">
-                        <i class="fas fa-exchange-alt"></i> Request Swap
-                    </button>
-                </div>
-            </div>
-            
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1520367445093-50dc08a59d9d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="White Shirt">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Classic White Shirt</h3>
-                    <div class="product-price">150 points</div>
-                    <div class="product-meta">
-                        <span>Size: M</span>
-                        <span>Condition: Excellent</span>
-                    </div>
-                    <button class="add-to-cart">
-                        <i class="fas fa-exchange-alt"></i> Request Swap
-                    </button>
-                </div>
-            </div>
-            
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Wool Coat">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Wool Winter Coat</h3>
-                    <div class="product-price">350 points</div>
-                    <div class="product-meta">
-                        <span>Size: L</span>
-                        <span>Condition: Like New</span>
-                    </div>
-                    <button class="add-to-cart">
-                        <i class="fas fa-exchange-alt"></i> Request Swap
-                    </button>
-                </div>
-            </div>
-            
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1554412933-514a83d2f3c8?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Sunglasses">
-                    <div class="product-badge">New</div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Designer Sunglasses</h3>
-                    <div class="product-price">120 points</div>
-                    <div class="product-meta">
-                        <span>One Size</span>
-                        <span>Condition: New</span>
-                    </div>
-                    <button class="add-to-cart">
-                        <i class="fas fa-exchange-alt"></i> Request Swap
-                    </button>
-                </div>
-            </div>
-            
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Jeans">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Slim Fit Jeans</h3>
-                    <div class="product-price">200 points</div>
-                    <div class="product-meta">
-                        <span>Size: 32</span>
-                        <span>Condition: Good</span>
-                    </div>
-                    <button class="add-to-cart">
-                        <i class="fas fa-exchange-alt"></i> Request Swap
-                    </button>
-                </div>
-            </div>
-            
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Handbag">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title">Leather Handbag</h3>
-                    <div class="product-price">280 points</div>
-                    <div class="product-meta">
-                        <span>One Size</span>
-                        <span>Condition: Excellent</span>
-                    </div>
-                    <button class="add-to-cart">
-                        <i class="fas fa-exchange-alt"></i> Request Swap
-                    </button>
-                </div>
-            </div>
+        <div class="product-grid" id="productGrid">
+            <!-- Products will be loaded here by JS -->
         </div>
-        
-        <div class="pagination">
-            <button class="page-button"><i class="fas fa-chevron-left"></i></button>
-            <button class="page-button active">1</button>
-            <button class="page-button">2</button>
-            <button class="page-button">3</button>
-            <button class="page-button">4</button>
-            <button class="page-button"><i class="fas fa-chevron-right"></i></button>
-        </div>
+        <div class="pagination"></div>
     </div>
-    
-    <!-- Cart Sidebar -->
-    <div class="overlay" id="overlay"></div>
-    <div class="cart-sidebar" id="cart-sidebar">
-        <div class="cart-header">
-            <h3>Your Swap Requests (3)</h3>
-            <button class="close-cart" id="close-cart">&times;</button>
-        </div>
-        <div class="cart-items">
-            <div class="cart-item">
-                <div class="cart-item-image">
-                    <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=60" alt="Denim Jacket">
-                </div>
-                <div class="cart-item-details">
-                    <div class="cart-item-title">Vintage Denim Jacket</div>
-                    <div class="cart-item-price">250 points</div>
-                    <button class="cart-item-remove">Remove</button>
-                </div>
-            </div>
-            <div class="cart-item">
-                <div class="cart-item-image">
-                    <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=60" alt="Leather Boots">
-                </div>
-                <div class="cart-item-details">
-                    <div class="cart-item-title">Leather Ankle Boots</div>
-                    <div class="cart-item-price">300 points</div>
-                    <button class="cart-item-remove">Remove</button>
-                </div>
-            </div>
-            <div class="cart-item">
-                <div class="cart-item-image">
-                    <img src="https://images.unsplash.com/photo-1554412933-514a83d2f3c8?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=60" alt="Sunglasses">
-                </div>
-                <div class="cart-item-details">
-                    <div class="cart-item-title">Designer Sunglasses</div>
-                    <div class="cart-item-price">120 points</div>
-                    <button class="cart-item-remove">Remove</button>
-                </div>
-            </div>
-        </div>
-        <div class="cart-total">
-            Total: 670 points
-        </div>
-        <button class="checkout-button">Proceed to Swap</button>
-    </div>
-    
     <footer>
         <div class="footer-content">
             <div class="footer-section">
                 <h3>About ReWear</h3>
                 <p>Our mission is to promote sustainable fashion by creating a community where clothes can find new homes instead of ending up in landfills.</p>
             </div>
-            <!-- <div class="footer-section">
-                <h3>Quick Links</h3>
-                <a href="#">How It Works</a>
-                <a href="#">FAQ</a>
-                <a href="#">Terms of Service</a>
-                <a href="#">Privacy Policy</a>
-            </div> -->
-            <!-- <div class="footer-section">
-                <h3>Contact Us</h3>
-                <p>info@rewear.com</p>
-                <p>+1 (555) 123-4567</p>
-                <p>123 Green St, Eco City</p>
-            </div> -->
         </div>
-        <!-- <div class="copyright">
-            <p>&copy; 2025 ReWear - Community Clothing Exchange. All rights reserved.</p>
-        </div> -->
     </footer>
-  <script src="browse.js"></script>
+<script src="browse.js"></script>
+<script>
+    let currentPage = 1;
+    let productsData = [];
+    const PRODUCTS_PER_PAGE = 8;
+    let currentSort = 'Recommended';
+
+    async function loadProducts() {
+        const grid = document.getElementById('productGrid');
+        grid.innerHTML = '<p>Loading...</p>';
+        try {
+            const res = await fetch('http://localhost:5000/api/products');
+            const products = await res.json();
+            if (!Array.isArray(products) || products.length === 0) {
+                grid.innerHTML = '<p>No products found.</p>';
+                document.querySelector('.pagination').style.display = 'none';
+                return;
+            }
+            productsData = products;
+            renderProductsPage(1);
+            renderPagination();
+        } catch (err) {
+            grid.innerHTML = '<p>Failed to load products.</p>';
+            document.querySelector('.pagination').style.display = 'none';
+        }
+    }
+
+    function renderProductsPage(page) {
+        currentPage = page;
+        const grid = document.getElementById('productGrid');
+        grid.innerHTML = '';
+        let sortedProducts = [...productsData];
+        if (currentSort === 'Newest' || currentSort === 'Recommended') {
+            sortedProducts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        } else if (currentSort === 'Price: Low to High') {
+            sortedProducts.sort((a, b) => a.price - b.price);
+        } else if (currentSort === 'Price: High to Low') {
+            sortedProducts.sort((a, b) => b.price - a.price);
+        }
+        const start = (page - 1) * PRODUCTS_PER_PAGE;
+        const end = start + PRODUCTS_PER_PAGE;
+        const pageProducts = sortedProducts.slice(start, end);
+        pageProducts.forEach(product => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.style.cursor = 'pointer';
+            card.innerHTML = `
+                <div class="product-image">
+                    <img src="${product.images && product.images[0] ? product.images[0] : ''}" alt="${product.title}">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">${product.title}</h3>
+                    <div class="product-price">₹${product.price}</div>
+                    <div class="product-description">${product.description}</div>
+                </div>
+            `;
+            card.onclick = () => {
+                window.location.href = `itemlisting.html?id=${product._id}`;
+            };
+            grid.appendChild(card);
+        });
+    }
+
+    function renderPagination() {
+        const totalPages = Math.ceil(productsData.length / PRODUCTS_PER_PAGE);
+        const pagination = document.querySelector('.pagination');
+        pagination.style.display = totalPages > 1 ? 'flex' : 'none';
+        pagination.innerHTML = '';
+        const prevBtn = document.createElement('button');
+        prevBtn.className = 'page-button';
+        prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+        prevBtn.disabled = currentPage === 1;
+        prevBtn.onclick = () => {
+            if (currentPage > 1) {
+                renderProductsPage(currentPage - 1);
+                renderPagination();
+            }
+        };
+        pagination.appendChild(prevBtn);
+        for (let i = 1; i <= totalPages; i++) {
+            const btn = document.createElement('button');
+            btn.className = 'page-button' + (i === currentPage ? ' active' : '');
+            btn.textContent = i;
+            btn.onclick = () => {
+                renderProductsPage(i);
+                renderPagination();
+            };
+            pagination.appendChild(btn);
+        }
+        const nextBtn = document.createElement('button');
+        nextBtn.className = 'page-button';
+        nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+        nextBtn.disabled = currentPage === totalPages;
+        nextBtn.onclick = () => {
+            if (currentPage < totalPages) {
+                renderProductsPage(currentPage + 1);
+                renderPagination();
+            }
+        };
+        pagination.appendChild(nextBtn);
+    }
+
+    loadProducts();
+
+    document.querySelector('.sort-select').addEventListener('change', function(e) {
+        currentSort = e.target.value;
+        renderProductsPage(1);
+        renderPagination();
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var cartBtn = document.getElementById('cart-button');
+        if (cartBtn) {
+            cartBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = 'userdashboard.html';
+            });
+        }
+    });
+</script>
 </body>
 </html>

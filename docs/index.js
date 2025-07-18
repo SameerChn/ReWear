@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const getStartedBtn = document.querySelector('.hero .cta-button');
     if (getStartedBtn) {
         getStartedBtn.addEventListener('click', function () {
-            window.location.href = 'browse.html';
+            window.location.href = 'upload.html';
         });
     }
 });

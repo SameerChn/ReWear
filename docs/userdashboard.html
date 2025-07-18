@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="userdashboard.css">
+    <link rel="icon" href="logo.png" type="image/png">
 </head>
 <body>
     <div class="dashboard">
@@ -16,7 +17,7 @@
             </div>
             <ul class="nav-menu">
                 <li class="nav-item">
-                    <a href="browse.html" class="nav-link">
+                    <a href="index.html" class="nav-link">
                         <i class="fas fa-home"></i>
                         <span>home</span>
                     </a>
@@ -24,19 +25,13 @@
                 <li class="nav-item">
                     <a href="userdashboard.html" class="nav-link active">
                         <i class="fas fa-tshirt"></i>
-                        <span>My Listings</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="userdashboard.html" class="nav-link">
-                        <i class="fas fa-shopping-bag"></i>
-                        <span>My Purchases</span>
+                        <span>My Cart</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="browse.html" class="nav-link">
                         <i class="fas fa-exchange-alt"></i>
-                        <span>Swap Requests</span>
+                        <span>Explore</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -47,7 +42,6 @@
                 </li>
             </ul>
         </div>
-
         <div class="main-content">
             <div class="header">
                 <h1>User Dashboard</h1>
@@ -56,130 +50,93 @@
                     <span>User</span>
                 </div>
             </div>
-
             <div class="dashboard-cards">
                 <div class="card">
                     <h3>Total Listings</h3>
-                    <p>12</p>
-                </div>
-                <div class="card">
-                    <h3>Active Swaps</h3>
-                    <p>3</p>
+                    <p id="totalListings">0</p>
                 </div>
                 <div class="card points">
                     <h3>Reward Points</h3>
-                    <p>1,250</p>
+                    <p id="rewardPoints">0</p>
                 </div>
             </div>
-
             <div class="listings-container">
-                <h2 class="section-title">My Listings</h2>
-                <div class="tab-header">
-                    <div class="tab-link active" data-tab="available">Available (8)</div>
-                    <div class="tab-link" data-tab="pending">Pending (3)</div>
-                    <div class="tab-link" data-tab="sold">Sold (1)</div>
-                </div>
-                <div class="tab-content active" id="available">
-                    <div class="item-grid">
-                        <div class="item-card">
-                            <div class="item-image">
-                                <img src="https://via.placeholder.com/200x180?text=Summer+Dress" alt="Summer Dress">
-                            </div>
-                            <div class="item-details">
-                                <h4 class="item-title">Summer Floral Dress</h4>
-                                <div class="item-status status-available">Available</div>
-                            </div>
-                        </div>
-                        <div class="item-card">
-                            <div class="item-image">
-                                <img src="https://via.placeholder.com/200x180?text=Denim+Jacket" alt="Denim Jacket">
-                            </div>
-                            <div class="item-details">
-                                <h4 class="item-title">Vintage Denim Jacket</h4>
-                                <div class="item-status status-available">Available</div>
-                            </div>
-                        </div>
-                        <div class="item-card">
-                            <div class="item-image">
-                                <img src="https://via.placeholder.com/200x180?text=White+Sneakers" alt="White Sneakers">
-                            </div>
-                            <div class="item-details">
-                                <h4 class="item-title">White Canvas Sneakers</h4>
-                                <div class="item-status status-available">Available</div>
-                            </div>
-                        </div>
-                        <div class="item-card">
-                            <div class="item-image">
-                                <img src="https://via.placeholder.com/200x180?text=Black+Jeans" alt="Black Jeans">
-                            </div>
-                            <div class="item-details">
-                                <h4 class="item-title">Slim Fit Black Jeans</h4>
-                                <div class="item-status status-available">Available</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-content" id="pending">
-                    <div class="item-grid">
-                        <div class="item-card">
-                            <div class="item-image">
-                                <img src="https://via.placeholder.com/200x180?text=Striped+Shirt" alt="Striped Shirt">
-                            </div>
-                            <div class="item-details">
-                                <h4 class="item-title">Blue Striped Shirt</h4>
-                                <div class="item-status status-pending">Swap Pending</div>
-                            </div>
-                        </div>
-                        <div class="item-card">
-                            <div class="item-image">
-                                <img src="https://via.placeholder.com/200x180?text=Leather+Bag" alt="Leather Bag">
-                            </div>
-                            <div class="item-details">
-                                <h4 class="item-title">Brown Leather Bag</h4>
-                                <div class="item-status status-pending">Swap Pending</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-content" id="sold">
-                    <div class="item-grid">
-                        <div class="item-card">
-                            <div class="item-image">
-                                <img src="https://via.placeholder.com/200x180?text=Winter+Coat" alt="Winter Coat">
-                            </div>
-                            <div class="item-details">
-                                <h4 class="item-title">Wool Winter Coat</h4>
-                                <div class="item-status status-sold">Swapped</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="purchases-container">
-                <h2 class="section-title">My Purchases</h2>
-                <div class="item-grid">
-                    <div class="item-card">
-                        <div class="item-image">
-                            <img src="https://via.placeholder.com/200x180?text=Red+Scarf" alt="Red Scarf">
-                        </div>
-                        <div class="item-details">
-                            <h4 class="item-title">Cashmere Red Scarf</h4>
-                            <div class="item-status status-available">Received</div>
-                        </div>
-                    </div>
-                    <div class="item-card">
-                        <div class="item-image">
-                            <img src="https://via.placeholder.com/200x180?text=Silk+Blouse" alt="Silk Blouse">
-                        </div>
-                        <div class="item-details">
-                            <h4 class="item-title">Silk White Blouse</h4>
-                            <div class="item-status status-available">Received</div>
-                        </div>
-                    </div>
+                <h2 class="section-title">My Cart</h2>
+                <div class="item-grid" id="myListingsGrid">
+                    <!-- Products will be loaded here by JS -->
                 </div>
             </div>
         </div>
-  <script src="userdashboard.js"></script>
+    </div>
+<script>
+// Fetch products from backend and render only those in the cart
+async function loadUserListings() {
+    try {
+        const res = await fetch('http://localhost:5000/api/products');
+        const products = await res.json();
+        const grid = document.getElementById('myListingsGrid');
+        grid.innerHTML = '';
+        // Get cart from localStorage
+        let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        if (!Array.isArray(products) || products.length === 0 || cart.length === 0) {
+            grid.innerHTML = '<p>No products in your cart.</p>';
+            document.getElementById('totalListings').textContent = '0';
+            document.getElementById('rewardPoints').textContent = '0';
+            return;
+        }
+        // Filter products to only those in the cart
+        const cartProducts = products.filter(product => cart.includes(product._id));
+        if (cartProducts.length === 0) {
+            grid.innerHTML = '<p>No products in your cart.</p>';
+            document.getElementById('totalListings').textContent = '0';
+            document.getElementById('rewardPoints').textContent = '0';
+            return;
+        }
+        // Calculate reward points (5-10% of price, random per product)
+        let totalPoints = 0;
+        cartProducts.forEach(product => {
+            const percent = Math.random() * 0.05 + 0.05; // 5% to 10%
+            totalPoints += Math.round(product.price * percent);
+        });
+        document.getElementById('totalListings').textContent = cartProducts.length;
+        document.getElementById('rewardPoints').textContent = totalPoints;
+        cartProducts.forEach(product => {
+            const card = document.createElement('div');
+            card.className = 'item-card';
+            card.style.cursor = 'pointer';
+            card.innerHTML = `
+                <div class=\"item-image\">
+                    <img src=\"${product.images && product.images[0] ? product.images[0] : ''}\" alt=\"${product.title}\">
+                </div>
+                <div class=\"item-details\">
+                    <h4 class=\"item-title\">${product.title}</h4>
+                    <div class=\"item-status status-available\">In Cart</div>
+                    <button class=\"remove-cart-btn\" data-id=\"${product._id}\" style=\"margin-top:10px;padding:6px 18px;border-radius:18px;background:#c0392b;color:#fff;border:none;cursor:pointer;\">Remove from Cart</button>
+                </div>
+            `;
+            card.onclick = (e) => {
+                if (e.target.classList.contains('remove-cart-btn')) return;
+                window.location.href = `itemlisting.html?id=${product._id}`;
+            };
+            grid.appendChild(card);
+        });
+        // Add event listeners for remove buttons
+        grid.querySelectorAll('.remove-cart-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                cart = cart.filter(pid => pid !== id);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                loadUserListings();
+            });
+        });
+    } catch (err) {
+        document.getElementById('myListingsGrid').innerHTML = '<p>Failed to load products.</p>';
+        document.getElementById('totalListings').textContent = '0';
+        document.getElementById('rewardPoints').textContent = '0';
+    }
+}
+loadUserListings();
+</script>
 </body>
 </html>

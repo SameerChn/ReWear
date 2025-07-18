@@ -5,8 +5,130 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ReWear - Community Clothing Exchange</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-     <link rel="stylesheet" href="landing.css">
+     <link rel="stylesheet" href="index.css">
+     <link rel="icon" href="logo.png" type="image/png">
 </head>
+<style>
+.cta-button {
+    display: inline-block;
+    background: #3C2A21;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 16px 40px;
+    border-radius: 32px;
+    box-shadow: 0 2px 8px rgba(60,42,33,0.10);
+    text-decoration: none;
+    margin-top: 24px;
+    transition: background 0.2s, box-shadow 0.2s;
+}
+.cta-button:hover {
+    background: #1A120B;
+    box-shadow: 0 4px 16px rgba(60,42,33,0.15);
+}
+.browse-cta {
+    background: #e5e5cb;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(60,42,33,0.07);
+    padding: 36px 24px;
+    margin: 32px 0;
+    text-align: center;
+}
+.browse-cta h2 {
+    font-size: 2rem;
+    color: #3C2A21;
+    margin-bottom: 12px;
+}
+.browse-cta p {
+    color: #1A120B;
+    font-size: 1.1rem;
+    margin-bottom: 24px;
+}
+.browse-btn {
+    display: inline-block;
+    background: #3C2A21;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 14px 32px;
+    border-radius: 28px;
+    box-shadow: 0 2px 8px rgba(60,42,33,0.10);
+    text-decoration: none;
+    transition: background 0.2s, box-shadow 0.2s;
+}
+.browse-btn:hover {
+    background: #1A120B;
+    box-shadow: 0 4px 16px rgba(60,42,33,0.15);
+}
+.info-section {
+    background: #f9f6f2;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(60,42,33,0.07);
+    padding: 36px 24px;
+    margin: 32px 0;
+    text-align: center;
+}
+.info-section h2 {
+    font-size: 2rem;
+    color: #3C2A21;
+    margin-bottom: 12px;
+}
+.info-section p {
+    color: #1A120B;
+    font-size: 1.1rem;
+    margin-bottom: 0;
+}
+.products {
+    background: #e5e5cb;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(60,42,33,0.07);
+    padding: 36px 24px;
+    margin: 32px 0;
+    text-align: center;
+}
+.products h2 {
+    font-size: 2rem;
+    color: #3C2A21;
+    margin-bottom: 18px;
+}
+.product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    justify-content: center;
+}
+.product-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(60,42,33,0.08);
+    padding: 18px 16px 12px 16px;
+    width: 240px;
+    transition: box-shadow 0.2s, transform 0.2s;
+    cursor: pointer;
+}
+.product-card:hover {
+    box-shadow: 0 6px 24px rgba(60,42,33,0.15);
+    transform: translateY(-4px) scale(1.03);
+}
+.product-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+.product-info h3 {
+    font-size: 1.1rem;
+    color: #3C2A21;
+    margin-bottom: 6px;
+}
+.product-info .price {
+    color: #1A120B;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 0;
+}
+</style>
 <body>
     <div class="container">
         <header>
@@ -15,87 +137,37 @@
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="browse.html">Shop</a></li>
-                <li><a href="userdashboard.html">Settings</a></li>
+                <li><a href="userdashboard.html">Dashboard</a></li>
                 <li><a href="login.html">Login</a></li>
                 </ul>
             </nav>
         </header>
         
-        <section class="hero">
+        <section class="hero" style="background: #f9f6f2; border-radius: 16px; box-shadow: 0 2px 12px rgba(60,42,33,0.07); padding: 40px 24px; margin: 32px 0; text-align: center;">
             <h1>Swap Clothes, Save the Planet</h1>
             <p>Join our community clothing exchange platform to give your unused garments a new life and find unique pieces for your wardrobe.</p>
-            <button class="cta-button">Get Started</button>
+            <a href="upload.html" class="cta-button">Upload Product</a>
         </section>
         
-        <section class="loading-section">
-            <h2>Finding Perfect Matches For You</h2>
-            <div class="loading-animation"></div>
-            <p>Our algorithm is working to connect you with the best clothing swaps in your area...</p>
+        <section class="browse-cta" style="text-align:center; margin: 32px 0;">
+            <h2>Start Exploring Unique Finds</h2>
+            <p>Browse all available products uploaded by the community.</p>
+            <a href="browse.html" class="btn btn-primary browse-btn">Go to Shop</a>
         </section>
         
-        <section class="image-gallery">
-            <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Fashion 1">
-            <img src="https://images.unsplash.com/photo-1520367445093-50dc08a59d9d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Fashion 2">
-            <img src="https://images.unsplash.com/photo-1520367445093-50dc08a59d9d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Fashion 3">
-        </section>
-        
-        <section class="categories">
-            <h2>Browse Categories</h2>
-            <div class="category-grid">
-                <div class="category-card">
-                    <img src="https://cdn-icons-png.flaticon.com/512/892/892458.png" alt="Men's Clothing">
-                    <h3>Men's Clothing</h3>
-                </div>
-                <div class="category-card">
-                    <img src="https://cdn-icons-png.flaticon.com/512/892/892459.png" alt="Women's Clothing">
-                    <h3>Women's Clothing</h3>
-                </div>
-                <div class="category-card">
-                    <img src="https://cdn-icons-png.flaticon.com/512/3048/3048127.png" alt="Kids Clothing">
-                    <h3>Kids Clothing</h3>
-                </div>
-                <div class="category-card">
-                    <img src="https://cdn-icons-png.flaticon.com/512/3043/3043788.png" alt="Accessories">
-                    <h3>Accessories</h3>
-                </div>
-            </div>
+        <!-- Removed categories section -->
+        <section class="info-section" style="text-align:center; margin: 32px 0;">
+            <h2>Why ReWear?</h2>
+            <p>Reduce waste, save money, and discover unique fashion by buying and selling pre-loved clothes.</p>
         </section>
         
         <section class="products">
             <h2>Featured Listings</h2>
-            <div class="product-grid">
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Denim Jacket">
+            <div class="product-grid" id="featuredGrid">
+                <!-- Featured products will be loaded here by JS -->
                     </div>
-                    <div class="product-info">
-                        <h3>Vintage Denim Jacket</h3>
-                        <p>Size: M | Condition: Excellent</p>
-                        <p class="price">250 points</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1543076447-215ad9ba6923?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Summer Dress">
-                    </div>
-                    <div class="product-info">
-                        <h3>Floral Summer Dress</h3>
-                        <p>Size: S | Condition: Like New</p>
-                        <p class="price">180 points</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Leather Boots">
-                    </div>
-                    <div class="product-info">
-                        <h3>Leather Ankle Boots</h3>
-                        <p>Size: 8 | Condition: Good</p>
-                        <p class="price">300 points</p>
-                    </div>
-                </div>
-            </div>
         </section>
+        
     </div>
     
     <footer>
@@ -123,6 +195,39 @@
         </div>
       </div>  
     </footer>
-  <script src="landing.js"></script>
+  <script src="index.js"></script>
+  <script>
+// Fetch products from backend and update image gallery and featured listings
+async function loadIndexProducts() {
+    try {
+        const res = await fetch('http://localhost:5000/api/products');
+        const products = await res.json();
+        // Featured Listings: show up to 3 products
+        const grid = document.getElementById('featuredGrid');
+        grid.innerHTML = '';
+        products.slice(0, 3).forEach(product => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.style.cursor = 'pointer';
+            card.innerHTML = `
+                <div class="product-image">
+                    <img src="${product.images && product.images[0] ? product.images[0] : ''}" alt="${product.title}">
+                </div>
+                <div class="product-info">
+                    <h3>${product.title}</h3>
+                    <p class="price">₹${product.price}</p>
+                </div>
+            `;
+            card.onclick = () => {
+                window.location.href = `itemlisting.html?id=${product._id}`;
+            };
+            grid.appendChild(card);
+        });
+    } catch (err) {
+        // fallback: show nothing
+    }
+}
+loadIndexProducts();
+</script>
 </body>
 </html>
