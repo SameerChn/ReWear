@@ -59,7 +59,12 @@ const createProduct = [
       });
     }
     const imageUrls = await Promise.all(req.files.map(file => uploadToCloudinary(file.buffer)));
-    const product = new Product({ title, description, price, images: imageUrls });
+    const product = new Product({ 
+      title, 
+      description, 
+      price, 
+      images: imageUrls
+    });
     const created = await product.save();
     res.status(201).json(created);
   })

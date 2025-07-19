@@ -17,7 +17,7 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="browse.html">Shop</a></li>
                     <li><a href="upload.html">Upload Product</a></li>
-                    <li><a href="userdashboard.html">Profile</a></li>
+                    <li><a href="userdashboard.html">cart</a></li>
                 </ul>
             </nav>
         </header>
@@ -43,6 +43,42 @@
         </div>
     </footer>
 <script>
+// Check authentication and get user ID
+let currentUserId = null;
+
+document.addEventListener('DOMContentLoaded', () => {
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
+    
+    if (!token || !user) {
+        window.location.href = 'login.html';
+        return;
+    }
+    
+    try {
+        const userData = JSON.parse(user);
+        currentUserId = userData._id;
+        loadProduct();
+    } catch (error) {
+        console.error('Error parsing user data:', error);
+        window.location.href = 'login.html';
+    }
+});
+
+// Get cart for current user
+function getUserCart() {
+    if (!currentUserId) return [];
+    const userCartKey = `cart_${currentUserId}`;
+    return JSON.parse(localStorage.getItem(userCartKey) || '[]');
+}
+
+// Save cart for current user
+function saveUserCart(cart) {
+    if (!currentUserId) return;
+    const userCartKey = `cart_${currentUserId}`;
+    localStorage.setItem(userCartKey, JSON.stringify(cart));
+}
+
 // Get product ID from URL
 function getProductId() {
     const params = new URLSearchParams(window.location.search);
@@ -58,9 +94,16 @@ async function loadProduct() {
     }
     detail.innerHTML = '<p>Loading...</p>';
     try {
-        const res = await fetch(`http://localhost:5000/api/products/${id}`);
+        const token = localStorage.getItem('token');
+        const res = await fetch(`http://localhost:5000/api/products/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
         if (!res.ok) throw new Error('Not found');
         const product = await res.json();
+        
         // Gallery logic
         let mainImage = product.images[0];
         let thumbnails = '';
@@ -69,9 +112,11 @@ async function loadProduct() {
                 `<img src="${img}" class="thumbnail" id="thumb${i}" style="width:60px;cursor:pointer;margin:4px;border-radius:6px;${i===0?'border:2px solid #3C2A21;':''}" onclick="setMainImage('${img}', ${i}, ${product.images.length})">`
             ).join('') + '</div>';
         }
-        // Check if already in cart
-        let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        
+        // Check if already in cart using user-specific cart
+        let cart = getUserCart();
         let inCart = cart.includes(product._id);
+        
         detail.innerHTML = `
             <div class="product-images">
                 <div class="main-image">
@@ -85,12 +130,20 @@ async function loadProduct() {
                 <div class="product-description">
                     <p>${product.description}</p>
                 </div>
-                <button class="btn btn-primary${inCart ? ' added' : ''}" id="addToCartBtn" onclick="addToCart('${product._id}')"
-                    ${inCart ? 'disabled' : ''}>
-                    ${inCart ? 'Added to Cart' : 'Add to Cart'}
-                </button>
+                <div class="product-actions">
+                    <div class="action-buttons">
+                        <button class="btn btn-primary${inCart ? ' added' : ''}" id="cartBtn" onclick="toggleCart('${product._id}')">
+                            ${inCart ? '<i class="fas fa-check"></i> In Cart' : '<i class="fas fa-shopping-cart"></i> Add to Cart'}
+                        </button>
+                        <button class="btn btn-success" onclick="purchaseItem('${product._id}', ${product.price})">
+                            <i class="fas fa-credit-card"></i> Purchase Now
+                        </button>
+                        ${inCart ? '<button class="btn btn-danger" onclick="removeFromCart(\'' + product._id + '\')"><i class="fas fa-trash"></i> Remove</button>' : ''}
+                    </div>
+                </div>
             </div>
         `;
+        
         // Load related products
         loadRelatedProducts(id);
     } catch (err) {
@@ -107,30 +160,68 @@ function setMainImage(img, idx, total) {
     }
 }
 
-function addToCart(productId) {
-    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    const btn = document.getElementById('addToCartBtn');
+function toggleCart(productId) {
+    let cart = getUserCart();
+    const btn = document.getElementById('cartBtn');
+    const productInfo = document.querySelector('.product-info');
+    
     if (!cart.includes(productId)) {
+        // Add to cart
         cart.push(productId);
-        localStorage.setItem('cart', JSON.stringify(cart));
+        saveUserCart(cart);
         if (btn) {
-            btn.textContent = 'Added to Cart';
-            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-check"></i> In Cart';
             btn.classList.add('added');
+        }
+        // Add remove button
+        const actionsDiv = document.querySelector('.action-buttons');
+        if (actionsDiv && !document.querySelector('.btn-danger')) {
+            actionsDiv.innerHTML += '<button class="btn btn-danger" onclick="removeFromCart(\'' + productId + '\')"><i class="fas fa-trash"></i> Remove</button>';
         }
     } else {
+        // Remove from cart
+        cart = cart.filter(id => id !== productId);
+        saveUserCart(cart);
         if (btn) {
-            btn.textContent = 'Added to Cart';
-            btn.disabled = true;
-            btn.classList.add('added');
+            btn.innerHTML = '<i class="fas fa-shopping-cart"></i> Add to Cart';
+            btn.classList.remove('added');
         }
+        // Remove remove button
+        const removeBtn = document.querySelector('.btn-danger');
+        if (removeBtn) {
+            removeBtn.remove();
+        }
+    }
+}
+
+function removeFromCart(productId) {
+    let cart = getUserCart();
+    cart = cart.filter(id => id !== productId);
+    saveUserCart(cart);
+    
+    const btn = document.getElementById('cartBtn');
+    if (btn) {
+        btn.innerHTML = '<i class="fas fa-shopping-cart"></i> Add to Cart';
+        btn.classList.remove('added');
+    }
+    
+    // Remove remove button
+    const removeBtn = document.querySelector('.btn-danger');
+    if (removeBtn) {
+        removeBtn.remove();
     }
 }
 
 async function loadRelatedProducts(currentId) {
     const grid = document.getElementById('relatedProducts');
     try {
-        const res = await fetch('http://localhost:5000/api/products');
+        const token = localStorage.getItem('token');
+        const res = await fetch('http://localhost:5000/api/products', {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
         const products = await res.json();
         const related = products.filter(p => p._id !== currentId);
         if (!related.length) {
@@ -154,14 +245,53 @@ async function loadRelatedProducts(currentId) {
             card.onclick = () => {
                 window.location.href = `itemlisting.html?id=${product._id}`;
             };
-            grid.appendChild(card);
-        });
-    } catch (err) {
-        grid.innerHTML = '<p>Failed to load related products.</p>';
-    }
+                    grid.appendChild(card);
+    });
+} catch (err) {
+    grid.innerHTML = '<p>Failed to load related products.</p>';
+}
 }
 
-loadProduct();
+// Purchase item function
+async function purchaseItem(productId, productPrice) {
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = 'login.html';
+            return;
+        }
+
+        const res = await fetch('http://localhost:5000/api/purchases', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                productId: productId,
+                quantity: 1
+            })
+        });
+        
+        if (!res.ok) {
+            const errorData = await res.json();
+            alert(errorData.message || 'Failed to purchase item');
+            return;
+        }
+        
+        const purchaseResult = await res.json();
+        
+        // Update user data in localStorage
+        const user = JSON.parse(localStorage.getItem('user'));
+        localStorage.setItem('user', JSON.stringify(user));
+        
+        alert('Purchase successful! Item has been added to your purchase history.');
+        
+    } catch (err) {
+        console.error('Error purchasing item:', err);
+        alert('Failed to purchase item. Please try again.');
+}
+}
 </script>
 <style>
 /* Add this style block or put in your CSS file */
@@ -171,6 +301,91 @@ loadProduct();
     border: none;
     cursor: default;
     opacity: 0.85;
+}
+
+.btn-danger {
+    background-color: #dc3545 !important;
+    color: #fff !important;
+    border: none;
+}
+
+.btn-success {
+    background-color: #28a745 !important;
+    color: #fff !important;
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #218838 !important;
+}
+
+.product-actions {
+    margin-top: 20px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 140px;
+    justify-content: center;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.btn-primary {
+    background-color: #007bff !important;
+    color: white !important;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3 !important;
+}
+
+.btn-success {
+    background-color: #28a745 !important;
+    color: white !important;
+}
+
+.btn-success:hover {
+    background-color: #218838 !important;
+}
+
+.btn-danger {
+    background-color: #dc3545 !important;
+    color: white !important;
+}
+
+.btn-danger:hover {
+    background-color: #c82333 !important;
+}
+
+.btn.added {
+    background-color: #6c757d !important;
+    color: white !important;
+    cursor: default;
+}
+
+.btn.added:hover {
+    transform: none;
+    box-shadow: none;
 }
 </style>
 </body>

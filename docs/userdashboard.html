@@ -13,7 +13,9 @@
     <div class="dashboard">
         <div class="sidebar">
             <div class="logo">
-                <h2>Re<span>Wear</span></h2>
+                <a href="index.html" style="text-decoration: none; color: inherit;">
+                    <h2>Re<span>Wear</span></h2>
+                </a>
             </div>
             <ul class="nav-menu">
                 <li class="nav-item">
@@ -35,7 +37,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="login.html" class="nav-link">
+                    <a href="#" class="nav-link" id="logout-btn">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Logout</span>
                     </a>
@@ -46,8 +48,8 @@
             <div class="header">
                 <h1>User Dashboard</h1>
                 <div class="user-info">
-                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User">
-                    <span>User</span>
+                    <img id="user-avatar" src="https://randomuser.me/api/portraits/women/44.jpg" alt="User">
+                    <span id="username">User</span>
                 </div>
             </div>
             <div class="dashboard-cards">
@@ -55,88 +57,553 @@
                     <h3>Total Listings</h3>
                     <p id="totalListings">0</p>
                 </div>
-                <div class="card points">
-                    <h3>Reward Points</h3>
-                    <p id="rewardPoints">0</p>
+                <div class="card">
+                    <h3>Purchase History</h3>
+                    <p id="purchaseCount">0</p>
                 </div>
             </div>
             <div class="listings-container">
-                <h2 class="section-title">My Cart</h2>
-                <div class="item-grid" id="myListingsGrid">
-                    <!-- Products will be loaded here by JS -->
+                <div class="tab-header">
+                    <div class="tab-link active" data-tab="cart-tab">My Cart</div>
+                    <div class="tab-link" data-tab="purchases-tab">Purchase History</div>
+                    <div class="tab-link" data-tab="messages-tab">Messages <span id="unread-count" class="unread-badge" style="display: none;">0</span></div>
+                </div>
+                
+                <div class="tab-content active" id="cart-tab">
+                    <div class="cart-header">
+                        <button id="purchase-all-btn" class="purchase-all-btn" style="display: none;">
+                            <i class="fas fa-shopping-cart"></i> Purchase All Items
+                        </button>
+                    </div>
+                    <div class="item-grid" id="myListingsGrid">
+                        <!-- Cart items will be loaded here by JS -->
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="purchases-tab">
+                    <div class="item-grid" id="purchasesGrid">
+                        <!-- Purchase history will be loaded here by JS -->
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="messages-tab">
+                    <div class="messages-container" id="messagesContainer">
+                        <!-- Messages will be loaded here by JS -->
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 <script>
+// Check authentication on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
+    
+    if (!token || !user) {
+        // Not authenticated, redirect to login
+        window.location.href = 'login.html';
+        return;
+    }
+    
+    // Load user data
+    try {
+        const userData = JSON.parse(user);
+        document.getElementById('username').textContent = userData.username;
+        if (userData.avatar) {
+            document.getElementById('user-avatar').src = userData.avatar;
+        }
+        
+        // Set user ID for cart management
+        window.currentUserId = userData._id;
+    } catch (error) {
+        console.error('Error parsing user data:', error);
+    }
+    
+    // Load cart items
+    loadUserListings();
+    
+    // Load purchase history
+    loadUserPurchases();
+    
+    // Load messages
+    loadUserMessages();
+    
+    // Update purchase count
+    updatePurchaseCount();
+    
+    // Add tab functionality
+    document.querySelectorAll('.tab-link').forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Remove active class from all tabs and contents
+            document.querySelectorAll('.tab-link').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            // Add active class to clicked tab and corresponding content
+            tab.classList.add('active');
+            const tabId = tab.getAttribute('data-tab');
+            document.getElementById(tabId).classList.add('active');
+        });
+    });
+    
+    // Add event listener for purchase all button
+    document.getElementById('purchase-all-btn').addEventListener('click', purchaseAllItems);
+});
+
+// Logout functionality
+document.getElementById('logout-btn').addEventListener('click', (e) => {
+    e.preventDefault();
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    // Don't clear cart - keep it for next login
+    // localStorage.removeItem('cart');
+    window.location.href = 'login.html';
+});
+
+// Get cart for current user
+function getUserCart() {
+    const userId = window.currentUserId;
+    if (!userId) return [];
+    
+    const userCartKey = `cart_${userId}`;
+    return JSON.parse(localStorage.getItem(userCartKey) || '[]');
+}
+
+// Save cart for current user
+function saveUserCart(cart) {
+    const userId = window.currentUserId;
+    if (!userId) return;
+    
+    const userCartKey = `cart_${userId}`;
+    localStorage.setItem(userCartKey, JSON.stringify(cart));
+}
+
 // Fetch products from backend and render only those in the cart
 async function loadUserListings() {
     try {
-        const res = await fetch('http://localhost:5000/api/products');
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = 'login.html';
+            return;
+        }
+
+        const res = await fetch('http://localhost:5000/api/products', {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        if (!res.ok) {
+            if (res.status === 401) {
+                // Token expired or invalid
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                window.location.href = 'login.html';
+                return;
+            }
+            throw new Error('Failed to fetch products');
+        }
+        
         const products = await res.json();
         const grid = document.getElementById('myListingsGrid');
         grid.innerHTML = '';
-        // Get cart from localStorage
-        let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        
+        // Get cart for current user
+        let cart = getUserCart();
+        
         if (!Array.isArray(products) || products.length === 0 || cart.length === 0) {
             grid.innerHTML = '<p>No products in your cart.</p>';
             document.getElementById('totalListings').textContent = '0';
-            document.getElementById('rewardPoints').textContent = '0';
             return;
         }
+        
         // Filter products to only those in the cart
         const cartProducts = products.filter(product => cart.includes(product._id));
+        
         if (cartProducts.length === 0) {
             grid.innerHTML = '<p>No products in your cart.</p>';
             document.getElementById('totalListings').textContent = '0';
-            document.getElementById('rewardPoints').textContent = '0';
             return;
         }
-        // Calculate reward points (5-10% of price, random per product)
-        let totalPoints = 0;
-        cartProducts.forEach(product => {
-            const percent = Math.random() * 0.05 + 0.05; // 5% to 10%
-            totalPoints += Math.round(product.price * percent);
-        });
+        
         document.getElementById('totalListings').textContent = cartProducts.length;
-        document.getElementById('rewardPoints').textContent = totalPoints;
+        
+        // Update purchase count
+        updatePurchaseCount();
+        
+        // Show/hide purchase all button
+        const purchaseAllBtn = document.getElementById('purchase-all-btn');
+        if (cartProducts.length > 0) {
+            purchaseAllBtn.style.display = 'block';
+        } else {
+            purchaseAllBtn.style.display = 'none';
+        }
+        
         cartProducts.forEach(product => {
             const card = document.createElement('div');
             card.className = 'item-card';
             card.style.cursor = 'pointer';
             card.innerHTML = `
-                <div class=\"item-image\">
-                    <img src=\"${product.images && product.images[0] ? product.images[0] : ''}\" alt=\"${product.title}\">
+                <div class="item-image">
+                    <img src="${product.images && product.images[0] ? product.images[0] : ''}" alt="${product.title}">
                 </div>
-                <div class=\"item-details\">
-                    <h4 class=\"item-title\">${product.title}</h4>
-                    <div class=\"item-status status-available\">In Cart</div>
-                    <button class=\"remove-cart-btn\" data-id=\"${product._id}\" style=\"margin-top:10px;padding:6px 18px;border-radius:18px;background:#c0392b;color:#fff;border:none;cursor:pointer;\">Remove from Cart</button>
+                <div class="item-details">
+                    <h4 class="item-title">${product.title}</h4>
+                    <p class="item-price">$${product.price}</p>
+                    <div class="item-status status-available">In Cart</div>
+                    <div class="cart-buttons">
+                        <button class="purchase-btn" data-id="${product._id}" data-price="${product.price}" style="margin-top:10px;padding:6px 18px;border-radius:18px;background:#27ae60;color:#fff;border:none;cursor:pointer;margin-right:5px;">Purchase</button>
+                        <button class="remove-cart-btn" data-id="${product._id}" style="margin-top:10px;padding:6px 18px;border-radius:18px;background:#c0392b;color:#fff;border:none;cursor:pointer;">Remove</button>
+                    </div>
                 </div>
             `;
+            
             card.onclick = (e) => {
-                if (e.target.classList.contains('remove-cart-btn')) return;
+                if (e.target.classList.contains('remove-cart-btn') || e.target.classList.contains('purchase-btn')) return;
                 window.location.href = `itemlisting.html?id=${product._id}`;
             };
+            
             grid.appendChild(card);
         });
+        
         // Add event listeners for remove buttons
         grid.querySelectorAll('.remove-cart-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 const id = this.getAttribute('data-id');
-                let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                let cart = getUserCart();
                 cart = cart.filter(pid => pid !== id);
-                localStorage.setItem('cart', JSON.stringify(cart));
+                saveUserCart(cart);
                 loadUserListings();
             });
         });
+        
+        // Add event listeners for purchase buttons
+        grid.querySelectorAll('.purchase-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                const price = this.getAttribute('data-price');
+                purchaseItem(id, price);
+            });
+        });
+        
     } catch (err) {
+        console.error('Error loading listings:', err);
         document.getElementById('myListingsGrid').innerHTML = '<p>Failed to load products.</p>';
         document.getElementById('totalListings').textContent = '0';
-        document.getElementById('rewardPoints').textContent = '0';
     }
 }
-loadUserListings();
+
+// Load user's purchase history
+async function loadUserPurchases() {
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = 'login.html';
+            return;
+        }
+
+        const res = await fetch('http://localhost:5000/api/purchases', {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        if (!res.ok) {
+            if (res.status === 401) {
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                window.location.href = 'login.html';
+                return;
+            }
+            throw new Error('Failed to fetch purchases');
+        }
+        
+        const purchases = await res.json();
+        const grid = document.getElementById('purchasesGrid');
+        grid.innerHTML = '';
+        
+        if (!Array.isArray(purchases) || purchases.length === 0) {
+            grid.innerHTML = '<p>No purchase history found.</p>';
+            return;
+        }
+        
+        purchases.forEach(purchase => {
+            const card = document.createElement('div');
+            card.className = 'item-card';
+            card.innerHTML = `
+                <div class="item-image">
+                    <img src="${purchase.product.images && purchase.product.images[0] ? purchase.product.images[0] : ''}" alt="${purchase.product.title}">
+                </div>
+                <div class="item-details">
+                    <h4 class="item-title">${purchase.product.title}</h4>
+                    <p class="item-price">$${purchase.totalAmount}</p>
+                    <div class="item-status status-${purchase.status}">${purchase.status.charAt(0).toUpperCase() + purchase.status.slice(1)}</div>
+                    <p class="purchase-date">${new Date(purchase.createdAt).toLocaleDateString()}</p>
+                </div>
+            `;
+            
+            grid.appendChild(card);
+        });
+        
+        // Update purchase count
+        document.getElementById('purchaseCount').textContent = purchases.length;
+        
+    } catch (err) {
+        console.error('Error loading purchases:', err);
+        document.getElementById('purchasesGrid').innerHTML = '<p>Failed to load purchase history.</p>';
+    }
+}
+
+// Purchase item function
+async function purchaseItem(productId, productPrice) {
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = 'login.html';
+            return;
+        }
+
+        const res = await fetch('http://localhost:5000/api/purchases', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                productId: productId,
+                quantity: 1
+            })
+        });
+        
+        if (!res.ok) {
+            const errorData = await res.json();
+            alert(errorData.message || 'Failed to purchase item');
+            return;
+        }
+        
+        const purchaseResult = await res.json();
+        
+        // Update user data in localStorage
+        const user = JSON.parse(localStorage.getItem('user'));
+        localStorage.setItem('user', JSON.stringify(user));
+        
+        // Remove from cart
+        let cart = getUserCart();
+        cart = cart.filter(pid => pid !== productId);
+        saveUserCart(cart);
+        
+        // Reload cart and purchases
+        loadUserListings();
+        loadUserPurchases();
+        updatePurchaseCount();
+        
+        alert('Purchase successful! Item has been added to your purchase history.');
+        
+    } catch (err) {
+        console.error('Error purchasing item:', err);
+        alert('Failed to purchase item. Please try again.');
+    }
+}
+
+// Update purchase count
+async function updatePurchaseCount() {
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) return;
+
+        const res = await fetch('http://localhost:5000/api/purchases', {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        if (res.ok) {
+            const purchases = await res.json();
+            document.getElementById('purchaseCount').textContent = purchases.length || 0;
+        }
+    } catch (err) {
+        console.error('Error updating purchase count:', err);
+    }
+}
+
+// Purchase all items in cart
+async function purchaseAllItems() {
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = 'login.html';
+            return;
+        }
+
+        const cart = getUserCart();
+        if (cart.length === 0) {
+            alert('Your cart is empty!');
+            return;
+        }
+
+        const res = await fetch('http://localhost:5000/api/purchases/bulk', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                productIds: cart
+            })
+        });
+        
+        if (!res.ok) {
+            const errorData = await res.json();
+            alert(errorData.message || 'Failed to purchase items');
+            return;
+        }
+        
+        const purchaseResult = await res.json();
+        
+        // Update user data in localStorage
+        const user = JSON.parse(localStorage.getItem('user'));
+        localStorage.setItem('user', JSON.stringify(user));
+        
+        // Clear cart
+        saveUserCart([]);
+        
+        // Reload cart, purchases, and messages
+        loadUserListings();
+        loadUserPurchases();
+        loadUserMessages();
+        updatePurchaseCount();
+        
+        alert(`Successfully purchased ${purchaseResult.purchases.length} items! Messages have been sent to sellers.`);
+        
+    } catch (err) {
+        console.error('Error purchasing items:', err);
+        alert('Failed to purchase items. Please try again.');
+    }
+}
+
+// Load user's messages
+async function loadUserMessages() {
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = 'login.html';
+            return;
+        }
+
+        const res = await fetch('http://localhost:5000/api/messages', {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        if (!res.ok) {
+            if (res.status === 401) {
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                window.location.href = 'login.html';
+                return;
+            }
+            throw new Error('Failed to fetch messages');
+        }
+        
+        const messages = await res.json();
+        const container = document.getElementById('messagesContainer');
+        container.innerHTML = '';
+        
+        if (!Array.isArray(messages) || messages.length === 0) {
+            container.innerHTML = '<p>No messages found.</p>';
+            return;
+        }
+        
+        messages.forEach(message => {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message-item ${message.isRead ? 'read' : 'unread'}`;
+            messageDiv.innerHTML = `
+                <div class="message-header">
+                    <div class="message-sender">
+                        <img src="${message.sender.avatar || 'https://randomuser.me/api/portraits/lego/1.jpg'}" alt="${message.sender.username}" class="sender-avatar">
+                        <span class="sender-name">${message.sender.username}</span>
+                    </div>
+                    <div class="message-date">${new Date(message.createdAt).toLocaleDateString()}</div>
+                </div>
+                <div class="message-subject">${message.subject}</div>
+                <div class="message-content">${message.content}</div>
+                ${message.relatedProduct ? `<div class="message-product">Related to: ${message.relatedProduct.title}</div>` : ''}
+            `;
+            
+            // Mark as read when clicked
+            messageDiv.addEventListener('click', () => {
+                if (!message.isRead) {
+                    markMessageAsRead(message._id);
+                }
+            });
+            
+            container.appendChild(messageDiv);
+        });
+        
+        // Update unread count
+        updateUnreadCount();
+        
+    } catch (err) {
+        console.error('Error loading messages:', err);
+        document.getElementById('messagesContainer').innerHTML = '<p>Failed to load messages.</p>';
+    }
+}
+
+// Mark message as read
+async function markMessageAsRead(messageId) {
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) return;
+
+        const res = await fetch(`http://localhost:5000/api/messages/${messageId}/read`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        if (res.ok) {
+            // Reload messages to update UI
+            loadUserMessages();
+        }
+    } catch (err) {
+        console.error('Error marking message as read:', err);
+    }
+}
+
+// Update unread message count
+async function updateUnreadCount() {
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) return;
+
+        const res = await fetch('http://localhost:5000/api/messages/unread-count', {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        if (res.ok) {
+            const data = await res.json();
+            const unreadBadge = document.getElementById('unread-count');
+            if (data.unreadCount > 0) {
+                unreadBadge.textContent = data.unreadCount;
+                unreadBadge.style.display = 'inline';
+            } else {
+                unreadBadge.style.display = 'none';
+            }
+        }
+    } catch (err) {
+        console.error('Error updating unread count:', err);
+    }
+}
 </script>
 </body>
 </html>

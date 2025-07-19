@@ -8,6 +8,8 @@ const { errorHandler } = require('./middleware/errorHandler');
 
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/listingRoutes');
+const purchaseRoutes = require('./routes/purchaseRoutes');
+const messageRoutes = require('./routes/messageRoutes');
 
 const app = express();
 connectDB();
@@ -20,5 +22,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/purchases', purchaseRoutes);
+app.use('/api/messages', messageRoutes);
 app.use(errorHandler);
 module.exports = app;
