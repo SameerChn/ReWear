@@ -1,3 +1,17 @@
+// Save token and user from URL to localStorage after Google login
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get('token');
+  const user = params.get('user');
+  if (token) {
+    localStorage.setItem('token', token);
+    if (user) {
+      localStorage.setItem('user', user);
+    }
+    // Optionally, remove the token and user from the URL for cleanliness
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
+})();
 // JavaScript for landing page functionality
 document.addEventListener('DOMContentLoaded', function () {
     // Handle loading animation replacement after 3 seconds

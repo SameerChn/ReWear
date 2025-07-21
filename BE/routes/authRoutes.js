@@ -14,10 +14,20 @@ router.put('/profile', protect, authController.updateUserProfile);
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/login.html', session: true }), (req, res) => {
-  // Generate JWT and redirect to frontend
+  // Generate JWT and redirect to the correct frontend with user info
   const token = generateToken(req.user._id);
-  // You can change the redirect URL as needed
-  res.redirect(`http://localhost:5500/index.html?token=${token}`);
+  const userData = {
+    _id: req.user._id,
+    username: req.user.username,
+    email: req.user.email,
+    points: req.user.points,
+    avatar: req.user.avatar,
+    location: req.user.location
+  };
+  const frontendUrl = process.env.NODE_ENV === 'production'
+    ? 'https://rewear-beta.vercel.app/index.html'
+    : 'http://localhost:5500/docs/index.html';
+  res.redirect(`${frontendUrl}?token=${token}&user=${encodeURIComponent(JSON.stringify(userData))}`);
 });
 
 module.exports = router;
