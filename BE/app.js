@@ -16,6 +16,19 @@ connectDB();
 app.use(cors());
 app.use(express.json({ limit: '20mb' }));
 app.use(express.urlencoded({ limit: '20mb', extended: true }));
+
+// Google OAuth session and passport setup
+const session = require('express-session');
+const passport = require('passport');
+require('./config/passport');
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'defaultsecret',
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }

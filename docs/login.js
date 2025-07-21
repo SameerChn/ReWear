@@ -10,7 +10,7 @@ const registerError = document.getElementById('register-error');
 
 // Social login buttons
 const googleButtons = document.querySelectorAll('.google-btn');
-const githubButtons = document.querySelectorAll('.github-btn');
+// Removed githubButtons
 
 // API base URL
 const API_BASE_URL = 'http://localhost:5000/api';
@@ -213,15 +213,11 @@ registerBtn.addEventListener('click', async () => {
 // Social login functionality
 googleButtons.forEach(btn => {
   btn.addEventListener('click', () => {
-    alert('Google authentication selected. In a real application, this would redirect to Google OAuth.');
+    window.location.href = 'http://localhost:5000/api/auth/google';
   });
 });
 
-githubButtons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    alert('GitHub authentication selected. In a real application, this would redirect to GitHub OAuth.');
-  });
-});
+
 
 // Forgot password functionality
 document.getElementById('forgot-password').addEventListener('click', () => {

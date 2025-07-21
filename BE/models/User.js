@@ -52,6 +52,11 @@ const userSchema = new mongoose.Schema({
       ref: 'Review',
     },
   ],
+  googleId: {
+    type: String,
+    unique: true,
+    sparse: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
