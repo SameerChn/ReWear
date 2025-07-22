@@ -260,8 +260,27 @@ async function purchaseItem(productId, productPrice) {
             window.location.href = 'login.html';
             return;
         }
-
         const res = await fetch('https://rewear-ycn9.onrender.com/api/purchases', {
             method: 'POST',
             headers: {
-                'Authorization': `
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ productId, price: productPrice })
+        });
+        if (!res.ok) {
+            const errorData = await res.json();
+            alert(errorData.message || 'Failed to purchase item');
+            return;
+        }
+        const purchaseResult = await res.json();
+        alert('Purchase successful! Item has been added to your purchase history.');
+        // Optionally, redirect or update UI
+    } catch (err) {
+        console.error('Error purchasing item:', err);
+        alert('Failed to purchase item. Please try again.');
+    }
+}
+</script>
+</body>
+</html>
