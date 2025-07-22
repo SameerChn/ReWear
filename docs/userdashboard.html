@@ -199,7 +199,7 @@ async function loadUserListings() {
             return;
         }
 
-        const res = await fetch('http://localhost:5000/api/products', {
+        const res = await fetch('https://rewear-2.onrender.com/api/products', {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -315,7 +315,7 @@ async function loadUserPurchases() {
             return;
         }
 
-        const res = await fetch('http://localhost:5000/api/purchases', {
+        const res = await fetch('https://rewear-2.onrender.com/api/purchases', {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -377,7 +377,7 @@ async function purchaseItem(productId, productPrice) {
             return;
         }
 
-        const res = await fetch('http://localhost:5000/api/purchases', {
+        const res = await fetch('https://rewear-2.onrender.com/api/purchases', {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -425,7 +425,7 @@ async function updatePurchaseCount() {
         const token = localStorage.getItem('token');
         if (!token) return;
 
-        const res = await fetch('http://localhost:5000/api/purchases', {
+        const res = await fetch('https://rewear-2.onrender.com/api/purchases', {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -456,7 +456,7 @@ async function purchaseAllItems() {
             return;
         }
 
-        const res = await fetch('http://localhost:5000/api/purchases/bulk', {
+        const res = await fetch('https://rewear-2.onrender.com/api/purchases/bulk', {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -505,7 +505,7 @@ async function loadUserMessages() {
             return;
         }
 
-        const res = await fetch('http://localhost:5000/api/messages', {
+        const res = await fetch('https://rewear-2.onrender.com/api/messages', {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -572,7 +572,7 @@ async function markMessageAsRead(messageId) {
         const token = localStorage.getItem('token');
         if (!token) return;
 
-        const res = await fetch(`http://localhost:5000/api/messages/${messageId}/read`, {
+        const res = await fetch(`https://rewear-2.onrender.com/api/messages/${messageId}/read`, {
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -595,7 +595,7 @@ async function updateUnreadCount() {
         const token = localStorage.getItem('token');
         if (!token) return;
 
-        const res = await fetch('http://localhost:5000/api/messages/unread-count', {
+        const res = await fetch('https://rewear-2.onrender.com/api/messages/unread-count', {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'

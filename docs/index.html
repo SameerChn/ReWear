@@ -200,7 +200,7 @@
 // Fetch products from backend and update image gallery and featured listings
 async function loadIndexProducts() {
     try {
-        const res = await fetch('http://localhost:5000/api/products');
+        const res = await fetch('https://rewear-2.onrender.com/api/products');
         const products = await res.json();
         // Featured Listings: show up to 3 products
         const grid = document.getElementById('featuredGrid');
