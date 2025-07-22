@@ -27,7 +27,7 @@ document.getElementById('uploadForm').addEventListener('submit', async function 
 
     try {
         const token = localStorage.getItem('token');
-        const response = await fetch('https://rewear-1-poui.onrender.com/api/products', {
+        const response = await fetch('https://rewear-ycn9.onrender.com/api/products', {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,

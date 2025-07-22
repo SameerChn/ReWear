@@ -10,7 +10,7 @@
         }
         try {
             // Fetch stats
-            const statsRes = await fetch('https://rewear-1-poui.onrender.com/api/admin/stats', {
+            const statsRes = await fetch('https://rewear-ycn9.onrender.com/api/admin/stats', {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (!statsRes.ok) throw new Error('Failed to fetch stats');
@@ -21,7 +21,7 @@
             document.getElementById('completed-swaps').textContent = stats.completedSwaps;
 
             // Fetch users
-            const usersRes = await fetch('https://rewear-1-poui.onrender.com/api/users', {
+            const usersRes = await fetch('https://rewear-ycn9.onrender.com/api/users', {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (!usersRes.ok) throw new Error('Failed to fetch users');
@@ -38,7 +38,7 @@
             btn.addEventListener('click', async function() {
                 const userId = btn.getAttribute('data-id');
                 const token = localStorage.getItem('token');
-                const res = await fetch(`https://rewear-1-poui.onrender.com/api/users/${userId}`, {
+                const res = await fetch(`https://rewear-ycn9.onrender.com/api/users/${userId}`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 const user = await res.json();
@@ -58,7 +58,7 @@
             btn.addEventListener('click', async function() {
                 const userId = btn.getAttribute('data-id');
                 const token = localStorage.getItem('token');
-                const res = await fetch(`https://rewear-1-poui.onrender.com/api/users/${userId}`, {
+                const res = await fetch(`https://rewear-ycn9.onrender.com/api/users/${userId}`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 const user = await res.json();
@@ -110,7 +110,7 @@
                 avatar: document.getElementById('edit-avatar').value,
                 location: document.getElementById('edit-location').value
             };
-            await fetch(`https://rewear-1-poui.onrender.com/api/users/${userId}`, {
+            await fetch(`https://rewear-ycn9.onrender.com/api/users/${userId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -128,7 +128,7 @@
         document.getElementById('confirm-delete-user').onclick = async function() {
             const userId = document.getElementById('delete-user-modal').getAttribute('data-id');
             const token = localStorage.getItem('token');
-            await fetch(`https://rewear-1-poui.onrender.com/api/users/${userId}`, {
+            await fetch(`https://rewear-ycn9.onrender.com/api/users/${userId}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             });

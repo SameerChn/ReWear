@@ -95,7 +95,7 @@ async function loadProduct() {
     detail.innerHTML = '<p>Loading...</p>';
     try {
         const token = localStorage.getItem('token');
-        const res = await fetch(`https://rewear-2.onrender.com/api/products/${id}`, {
+        const res = await fetch(`https://rewear-ycn9.onrender.com/api/products/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -216,7 +216,7 @@ async function loadRelatedProducts(currentId) {
     const grid = document.getElementById('relatedProducts');
     try {
         const token = localStorage.getItem('token');
-        const res = await fetch('https://rewear-2.onrender.com/api/products', {
+        const res = await fetch('https://rewear-ycn9.onrender.com/api/products', {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -261,132 +261,7 @@ async function purchaseItem(productId, productPrice) {
             return;
         }
 
-        const res = await fetch('https://rewear-2.onrender.com/api/purchases', {
+        const res = await fetch('https://rewear-ycn9.onrender.com/api/purchases', {
             method: 'POST',
             headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                productId: productId,
-                quantity: 1
-            })
-        });
-        
-        if (!res.ok) {
-            const errorData = await res.json();
-            alert(errorData.message || 'Failed to purchase item');
-            return;
-        }
-        
-        const purchaseResult = await res.json();
-        
-        // Update user data in localStorage
-        const user = JSON.parse(localStorage.getItem('user'));
-        localStorage.setItem('user', JSON.stringify(user));
-        
-        alert('Purchase successful! Item has been added to your purchase history.');
-        
-    } catch (err) {
-        console.error('Error purchasing item:', err);
-        alert('Failed to purchase item. Please try again.');
-}
-}
-</script>
-<style>
-/* Add this style block or put in your CSS file */
-.btn.added {
-    background-color: #4CAF50 !important;
-    color: #fff !important;
-    border: none;
-    cursor: default;
-    opacity: 0.85;
-}
-
-.btn-danger {
-    background-color: #dc3545 !important;
-    color: #fff !important;
-    border: none;
-}
-
-.btn-success {
-    background-color: #28a745 !important;
-    color: #fff !important;
-    border: none;
-}
-
-.btn-success:hover {
-    background-color: #218838 !important;
-}
-
-.product-actions {
-    margin-top: 20px;
-}
-
-.action-buttons {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.btn {
-    padding: 12px 24px;
-    border-radius: 8px;
-    font-weight: 500;
-    font-size: 14px;
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    min-width: 140px;
-    justify-content: center;
-}
-
-.btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
-.btn-primary {
-    background-color: #007bff !important;
-    color: white !important;
-}
-
-.btn-primary:hover {
-    background-color: #0056b3 !important;
-}
-
-.btn-success {
-    background-color: #28a745 !important;
-    color: white !important;
-}
-
-.btn-success:hover {
-    background-color: #218838 !important;
-}
-
-.btn-danger {
-    background-color: #dc3545 !important;
-    color: white !important;
-}
-
-.btn-danger:hover {
-    background-color: #c82333 !important;
-}
-
-.btn.added {
-    background-color: #6c757d !important;
-    color: white !important;
-    cursor: default;
-}
-
-.btn.added:hover {
-    transform: none;
-    box-shadow: none;
-}
-</style>
-</body>
-</html>
+                'Authorization': `

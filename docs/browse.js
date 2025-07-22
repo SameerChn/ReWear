@@ -41,7 +41,7 @@ function saveUserCart(cart) {
 async function loadProducts() {
     try {
         const token = localStorage.getItem('token');
-        const response = await fetch('https://rewear-1-poui.onrender.com/api/products', {
+        const response = await fetch('https://rewear-ycn9.onrender.com/api/products', {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -157,7 +157,7 @@ overlay.addEventListener('click', function() {
 async function loadCartItems() {
     try {
         const token = localStorage.getItem('token');
-        const response = await fetch('https://rewear-1-poui.onrender.com/api/products', {
+        const response = await fetch('https://rewear-ycn9.onrender.com/api/products', {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
