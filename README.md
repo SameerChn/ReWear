@@ -10,7 +10,6 @@ ReWear is a web-based platform designed to encourage sustainable fashion by allo
 
 **ReWear** empowers individuals to:
 - Swap wearable garments with others
-- Earn and use points for item redemption
 - Promote eco-conscious fashion practices
 
 By creating a platform for easy clothing exchange, ReWear aims to reduce landfill waste and give clothing a second life.
@@ -41,7 +40,6 @@ By creating a platform for easy clothing exchange, ReWear aims to reduce landfil
 - Uploader information
 - Action options:
   - “Swap Request”
-  - “Redeem via Points”
 - Item status (available, swapped, etc.)
 
 ### ➕ Add New Item

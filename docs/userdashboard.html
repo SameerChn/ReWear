@@ -36,6 +36,12 @@
                         <span>Explore</span>
                     </a>
                 </li>
+                <li class="nav-item" id="admin-panel-link" style="display:none;">
+                    <a href="adminPanel.html" class="nav-link">
+                        <i class="fas fa-user-shield"></i>
+                        <span>Admin Panel</span>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link" id="logout-btn">
                         <i class="fas fa-sign-out-alt"></i>
@@ -116,6 +122,12 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Set user ID for cart management
         window.currentUserId = userData._id;
+
+        // Show Admin Panel button if user is admin
+        if (userData.role === 'admin' || userData.role === 'superadmin') {
+            document.getElementById('admin-panel-link').style.display = 'block';
+        }
+        
     } catch (error) {
         console.error('Error parsing user data:', error);
     }

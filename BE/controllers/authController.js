@@ -85,10 +85,15 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error('User already exists');
   }
 
+  // Assign a unique avatar from randomuser.me lego set (1-10)
+  const avatarNumber = Math.floor(Math.random() * 10) + 1;
+  const avatar = `https://randomuser.me/api/portraits/lego/${avatarNumber}.jpg`;
+
   const user = await User.create({
     username,
     email,
     password,
+    avatar,
   });
 
   if (user) {

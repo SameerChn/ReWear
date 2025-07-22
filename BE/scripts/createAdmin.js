@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Admin = require('../models/Admin');
-require('dotenv').config({ path: '../.env' });
+require('dotenv').config();
 
 async function createAdmin() {
   await mongoose.connect(process.env.MONGO_URI, {
@@ -8,9 +8,9 @@ async function createAdmin() {
     useUnifiedTopology: true,
   });
 
-  const email = 'admin.rewear@gmail.com';
-  const username = 'admin';
-  const password = 'Admin@1234';
+  const email = 'admin@gmail.com';
+  const username = 'Admin';
+  const password = 'Admin1234';
 
   // Check if admin already exists
   const exists = await Admin.findOne({ email });

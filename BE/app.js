@@ -10,10 +10,15 @@ const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/listingRoutes');
 const purchaseRoutes = require('./routes/purchaseRoutes');
 const messageRoutes = require('./routes/messageRoutes');
+const adminRoutes = require('./routes/adminRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 connectDB();
-app.use(cors());
+app.use(cors({
+  origin: ['https://rewear-beta.vercel.app'],
+  credentials: true
+}));
 app.use(express.json({ limit: '20mb' }));
 app.use(express.urlencoded({ limit: '20mb', extended: true }));
 
@@ -37,5 +42,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/purchases', purchaseRoutes);
 app.use('/api/messages', messageRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/users', userRoutes);
 app.use(errorHandler);
 module.exports = app;

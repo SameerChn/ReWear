@@ -82,7 +82,11 @@ loginBtn.addEventListener('click', async () => {
       hasPassword: !!password
     }); // Debug log
 
-    const response = await fetch(`${API_BASE_URL}/auth/login`, {
+    // Determine if admin login (username/email matches admin)
+    const isAdminLogin = (loginInput.toLowerCase() === 'admin' || loginInput.toLowerCase() === 'admin@gmail.com');
+    const loginEndpoint = isAdminLogin ? '/admin/login' : '/auth/login';
+
+    const response = await fetch(`${API_BASE_URL}${loginEndpoint}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -103,9 +107,16 @@ loginBtn.addEventListener('click', async () => {
       localStorage.setItem('token', data.token);
       
       loginError.textContent = 'Login successful! Redirecting...';
-      setTimeout(() => {
-        window.location.href = 'index.html';
-      }, 1000);
+      // Redirect admin to adminPanel.html, others to index.html
+      if (data.role === 'admin' || data.role === 'superadmin') {
+        setTimeout(() => {
+          window.location.href = 'adminPanel.html';
+        }, 1000);
+      } else {
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 1000);
+      }
     } else {
       loginError.style.color = '#e74c3c';
       loginError.textContent = data.message || 'Login failed';
