@@ -13,7 +13,7 @@ const googleButtons = document.querySelectorAll('.google-btn');
 // Removed githubButtons
 
 // API base URL
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = 'https://rewear-1-poui.onrender.com/api';
 
 // Password visibility toggle
 function togglePasswordVisibility() {
@@ -224,7 +224,7 @@ registerBtn.addEventListener('click', async () => {
 // Social login functionality
 googleButtons.forEach(btn => {
   btn.addEventListener('click', () => {
-    window.location.href = 'http://localhost:5000/api/auth/google';
+    window.location.href = 'https://rewear-1-poui.onrender.com/api/auth/google';
   });
 });
 
